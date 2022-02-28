@@ -17,5 +17,6 @@ export const PanellStyles = styled.div`
 
     input {
         margin-left: 5px;
+        width: 50px;
     }
 `;

@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, {useState} from 'react';
+import Form from './components/form';
+import {Wrapper, WrapperForm, TitleBig, Description, GlobalStyle} from './styles/styles';
 
 function App() {
+
+  const [price, setPrice] = useState(0);
+  const [firstScreen, setFirstScreen] = useState(true);
+
+  const updateTotal = (total) => {
+    setPrice(total);
+  }
+
+  const secondScreen = () => setFirstScreen(false);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyle />
+      
+      {firstScreen ? 
+      
+        <Wrapper>
+          <TitleBig>Welcome !!!</TitleBig>
+          <Description>
+          Exercici de React pel módul 7 del curs d'IT Academy, on es treballen useState, useEffects, LocalStorage i Hooks.
+          </Description>
+          <button onClick={secondScreen}>Començar</button>
+        </Wrapper>
+
+      :
+        <WrapperForm>
+          <h2>Que vols fer ?</h2>
+
+          <Form formPresu={updateTotal} />
+
+          <p>Preu: {price} €</p>
+
+        </WrapperForm>
+      }
     </div>
+
   );
 }
 

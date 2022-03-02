@@ -1,6 +1,7 @@
 
 import React, {useEffect, useState}  from 'react';
 import { BoxIncDec } from './boxIncDec.style';
+import InfoTip from './infoTip';
 
 const PanellInput = (props) => {
 
@@ -21,6 +22,9 @@ const PanellInput = (props) => {
       <BoxIncDec onClick={() => (num>1) ? setNum(num - 1) : setNum(1)}>-</BoxIncDec>
       <input type="number" min="1" value={props.numShow} onChange={handleInputChange}/>
       <BoxIncDec onClick={() => setNum(num + 1)}>+</BoxIncDec>
+      <InfoTip 
+        msg={props.msg}
+      />
     </>
 
   )

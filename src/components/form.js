@@ -4,23 +4,33 @@ import Panell from './Panell';
 
 const Form = (props) => {
 
+    //
+    const [web, setWeb] = useState(false);
+    const [seo, setSeo] = useState(false);
+    const [ads, setAds] = useState(false);
+    const prices = [500, 300, 200];
 
-    const [dades, setDades] = useState({
-      web: false,
-      seo: false,
-      ads: false
-    });
     const [viewWebProps, setViewWebProps] = useState(false); 
     const [panellValue, setPanellValue] = useState(0);
 
-    const prices = [500, 300, 200];
-  
     const handleInputChange = (event) => {
-      
-      setDades({
-        ...dades,
-        [event.target.name] : event.target.checked
-      });
+
+      switch (event.target.name) {
+        case 'web':
+          setWeb(event.target.checked);
+          window.localStorage.setItem("web", JSON.stringify(event.target.checked));
+          break;
+        case 'seo':
+          setSeo(event.target.checked);
+          window.localStorage.setItem("seo", JSON.stringify(event.target.checked));
+          break;
+        case 'ads':
+          setAds(event.target.checked);
+          window.localStorage.setItem("ads", JSON.stringify(event.target.checked));
+          break;
+        default:
+          break;
+      }
 
       if (event.target.name === 'web') {
         if (event.target.checked === true) {
@@ -34,26 +44,47 @@ const Form = (props) => {
       
     }
 
-    useEffect(() => {
+    const calPrice = (array) => {
+      return array.map( (price, key) => {
+        
+        let value = 0;
+        if (key === 0 && web) { value = price; }
+        if (key === 1 && seo) { value = price; }
+        if (key === 2 && ads) { value = price; }
 
-      const actives = Object.keys(dades).map((dada) => [dada, dades[dada]]);
-
-      const priceTotal = actives.map((element, key) => {
-        return (element[1]==true) ? prices[key]: 0;
+        return value;
       }).reduce(function(acum, value) { return acum + value; });
+    }
+
+    useEffect(() => {
+      const webLocSt = JSON.parse(window.localStorage.getItem("web"));
+      const seoLocSt = JSON.parse(window.localStorage.getItem("seo"));
+      const adsLocSt = JSON.parse(window.localStorage.getItem("ads"));
+
+      const webLocSt_value = webLocSt ? webLocSt : false;
+      const seoLocSt_value = seoLocSt ? seoLocSt : false;
+      const adsLocSt_value = adsLocSt ? adsLocSt : false;
+
+      setWeb(webLocSt_value);
+      setSeo(seoLocSt_value);
+      setAds(adsLocSt_value);
+
+      if(webLocSt_value === true) {
+        setViewWebProps(true);
+      }
+
+      const priceTotal = calPrice(prices);
 
       const totalPresu = priceTotal + panellValue;
 
-
       props.formPresu(totalPresu);
 
-    },[dades, panellValue]);
+    },[web, seo, ads, panellValue]);
 
     const updateTotal = (value) => {
       setPanellValue(value);
     }
 
-  
     return (
       <form>
 
@@ -61,6 +92,7 @@ const Form = (props) => {
           <input
             name="web"
             type="checkbox"
+            checked={web}
             onChange={handleInputChange}
           />
           Una pàgina web (500€)
@@ -75,6 +107,7 @@ const Form = (props) => {
           <input
             name="seo"
             type="checkbox"
+            checked={seo}
             onChange={handleInputChange}
           />
           Una consultoria SEO (300€)
@@ -85,6 +118,7 @@ const Form = (props) => {
           <input
             name="ads"
             type="checkbox"
+            checked={ads}
             onChange={handleInputChange}
           />
           Una campanya de Google Ads (200€)

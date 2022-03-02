@@ -11,15 +11,16 @@ const PanellInput = (props) => {
   }
 
   useEffect(()=> {
+      //setNum(props.numShow);
       props.getNumber(num);
     }
   )
 
   return (
     <>
-      <BoxIncDec onClick={() => setNum(num + 1)}>+</BoxIncDec>
-      <input type="number" min="1" value={num} onChange={handleInputChange}/>
       <BoxIncDec onClick={() => (num>1) ? setNum(num - 1) : setNum(1)}>-</BoxIncDec>
+      <input type="number" min="1" value={props.numShow} onChange={handleInputChange}/>
+      <BoxIncDec onClick={() => setNum(num + 1)}>+</BoxIncDec>
     </>
 
   )

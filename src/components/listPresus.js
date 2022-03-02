@@ -1,11 +1,13 @@
 
 import React, {useState, useEffect} from 'react';
+import { ButtonActionStyle } from './buttonAction.style'
 
 const ListPresu = (props) => {
 
 	const [array, setArray] = useState(props.listPresu);
+	const initialArray = props.listPresu;
 
-	const presuList = array.map( (element) => {
+	const arrayList = array.map( (element) => {
 		return (
 			<tr key={element.namePresu}>
 				<td>{element.namePresu}</td>
@@ -16,6 +18,7 @@ const ListPresu = (props) => {
 				<td><input type="checkbox" checked={element.seo} /></td>
 				<td><input type="checkbox" checked={element.ads} /></td>
 				<td>{element.presu}</td>
+				<td>{element.date}</td>
 			</tr>
 		)
 
@@ -23,15 +26,47 @@ const ListPresu = (props) => {
 
 	useEffect(() => { 
 		console.log('pasa');
-		setArray(props.listPresu);
-	}, [props.listPresu]);
-/*
 
-*/
+	}, [props.listPresu]);
+
+	const orderByName = () => {
+		const newOrder = array.sort(function(a, b) {
+			if (a.namePresu > b.namePresu) {
+					return 1;
+			}
+			if (a.namePresu < b.namePresu) {
+					return -1;
+			}});
+		console.log(newOrder);
+		setArray(newOrder);
+
+	};
+	const orderByDate = () => {
+		const newOrder = array.sort(function(a, b) {
+			if (a.date > b.date) {
+					return 1;
+			}
+			if (a.date < b.date) {
+					return -1;
+			}});
+
+		console.log(newOrder);
+		setArray(newOrder);
+	}
+
+	const orderByInit = () => {
+		setArray(initialArray);
+		console.log(initialArray);
+	}
+
   return (
 
     <div>
       <h2>Llistat de pressupostos</h2>
+
+			<ButtonActionStyle onClick={orderByName}>Ordenar per nom</ButtonActionStyle>
+			<ButtonActionStyle onClick={orderByDate}>Ordenar per data</ButtonActionStyle>
+			<ButtonActionStyle onClick={orderByInit}>Reinicialitzar llista</ButtonActionStyle>
 
       <table>
         
@@ -44,9 +79,10 @@ const ListPresu = (props) => {
           <th>Consultoria SEO</th>
           <th>Google Ads</th>
 					<th>Preu</th>
+					<th>Data</th>
   			</tr>
 
-				{presuList}
+				{arrayList}
 
   		</table>
     </div>

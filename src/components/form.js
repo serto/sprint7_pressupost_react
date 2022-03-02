@@ -102,6 +102,9 @@ const Form = (props) => {
     const savePresu = (event) => {
       event.preventDefault();
 
+      const date = new Date();
+      const dateIso = date.toISOString();
+
       const presuObject = {
         web,
         numPages: JSON.parse(localStorage.getItem("numPages")),
@@ -110,7 +113,8 @@ const Form = (props) => {
         ads,
         namePresu,
         nameClient,
-        presu
+        presu,
+        date: dateIso
       }
 
       arrayPresus.push(presuObject);

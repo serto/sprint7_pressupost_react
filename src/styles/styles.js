@@ -45,6 +45,7 @@ export const GlobalStyle = createGlobalStyle`
 
   table {
     text-align: center;
+    margin-top: 12px;
   }
   th {
     font-size: 0.9rem;

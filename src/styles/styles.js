@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const WrapperForm = styled.div`
-width: 75%;
+width: 85%;
 margin: 24px auto 0;
 `;
 
@@ -33,4 +33,24 @@ export const GlobalStyle = createGlobalStyle`
     padding: 12px 0;
     font-size: 1.4rem;
 	}
+
+  label {
+    margin-bottom: 4px;
+    display: inline-block;
+
+    input[type='text'] {
+      margin-left: 8px;
+    }
+  }
+
+  table {
+    text-align: center;
+  }
+  th {
+    font-size: 0.9rem;
+    padding: 0 4px;
+  }
+  tr {
+    border: 1px solid black;
+  }
 `;

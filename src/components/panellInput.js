@@ -5,7 +5,7 @@ import InfoTip from './infoTip';
 
 const PanellInput = (props) => {
 
-  const [num, setNum] = useState(1);
+  const [num, setNum] = useState(props.numShow);
 
   const handleInputChange = (event) => {
     setNum(event.target.value);

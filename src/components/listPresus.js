@@ -1,63 +1,82 @@
 
 import React, {useState, useEffect} from 'react';
-import { ButtonActionStyle } from './buttonAction.style'
+import { ButtonActionStyle } from './buttonAction.style';
+import { SearcherStyle } from './searcher.style';
 
 const ListPresu = (props) => {
 
-	const [array, setArray] = useState(props.listPresu);
-	const initialArray = props.listPresu;
+  const [array, setArray] = useState(props.listPresu);
+  const initialArray = props.listPresu;
 
-	const arrayList = array.map( (element) => {
-		return (
-			<tr key={element.namePresu}>
-				<td>{element.namePresu}</td>
-				<td>{element.nameClient}</td>
-				<td><input type="checkbox" checked={element.web} /></td>
-				<td>{element.numPages}</td>
-				<td>{element.numLangs}</td>
-				<td><input type="checkbox" checked={element.seo} /></td>
-				<td><input type="checkbox" checked={element.ads} /></td>
-				<td>{element.presu}</td>
-				<td>{element.date}</td>
-			</tr>
-		)
+  const arrayList = array.map( (element) => {
+    return (
+      <tr key={element.namePresu}>
+        <td>{element.namePresu}</td>
+        <td>{element.nameClient}</td>
+        <td><input type="checkbox" checked={element.web} /></td>
+        <td>{element.numPages}</td>
+        <td>{element.numLangs}</td>
+        <td><input type="checkbox" checked={element.seo} /></td>
+        <td><input type="checkbox" checked={element.ads} /></td>
+        <td>{element.presu}</td>
+        <td>{element.date}</td>
+      </tr>
+    )
 
-	});
+  });
 
-	useEffect(() => { 
-		console.log('pasa');
+  useEffect(() => { 
+    console.log('pasa');
 
-	}, [props.listPresu]);
+  }, [props.listPresu]);
 
-	const orderByName = () => {
-		const newOrder = array.sort(function(a, b) {
-			if (a.namePresu > b.namePresu) {
-					return 1;
-			}
-			if (a.namePresu < b.namePresu) {
-					return -1;
-			}});
-		console.log(newOrder);
-		setArray(newOrder);
+  const orderByName = () => {
+    const newOrder = array.sort(function(a, b) {
+      if (a.namePresu > b.namePresu) {
+          return 1;
+      }
+      if (a.namePresu < b.namePresu) {
+          return -1;
+      }});
+    console.log(newOrder);
+    setArray(newOrder);
 
-	};
-	const orderByDate = () => {
-		const newOrder = array.sort(function(a, b) {
-			if (a.date > b.date) {
-					return 1;
-			}
-			if (a.date < b.date) {
-					return -1;
-			}});
+  };
+  const orderByDate = () => {
+    const newOrder = array.sort(function(a, b) {
+      if (a.date > b.date) {
+          return 1;
+      }
+      if (a.date < b.date) {
+          return -1;
+      }});
 
-		console.log(newOrder);
-		setArray(newOrder);
-	}
+    console.log(newOrder);
+    setArray(newOrder);
+  }
+  const orderByInit = () => {
+    setArray(initialArray);
+    console.log(initialArray);
+  }
 
-	const orderByInit = () => {
-		setArray(initialArray);
-		console.log(initialArray);
-	}
+  const handleInputChange = (event) => {
+
+    if (event.target.value) {
+      const resultFilter = array.map((element) => {
+        return (element.namePresu.includes(event.target.value)) ? element : null;
+      }).filter(function(element) {
+        if(element){
+          return element;
+        }
+      });
+
+      setArray(resultFilter);
+    } else {
+      setArray(initialArray);
+    }
+  }
+
+  const NoResults = () => (<tr><td>Sense coincidencies</td></tr>);
 
   return (
 
@@ -67,6 +86,7 @@ const ListPresu = (props) => {
 			<ButtonActionStyle onClick={orderByName}>Ordenar per nom</ButtonActionStyle>
 			<ButtonActionStyle onClick={orderByDate}>Ordenar per data</ButtonActionStyle>
 			<ButtonActionStyle onClick={orderByInit}>Reinicialitzar llista</ButtonActionStyle>
+			<SearcherStyle placeholder="Buscador ..." onChange={handleInputChange}/>
 
       <table>
         
@@ -82,7 +102,11 @@ const ListPresu = (props) => {
 					<th>Data</th>
   			</tr>
 
-				{arrayList}
+				{arrayList ? 
+					arrayList 
+					: 
+					<NoResults />
+				}
 
   		</table>
     </div>

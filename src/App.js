@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Form from './components/form';
 import {Wrapper, WrapperForm, TitleBig, Description, GlobalStyle} from './styles/styles';
 
-import { ButtonForm } from './components/button.style';
+import { ButtonForm } from './components/button/button.style';
 
 function App() {
 

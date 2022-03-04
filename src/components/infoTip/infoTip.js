@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { InfoTipStyle } from './infoTip.style';
-import { BoxMessageStyle } from './boxMessage.style';
+import { BoxMessageStyle } from '../boxMessage/boxMessage.style';
 
 const InfoTip = (props) => {
 

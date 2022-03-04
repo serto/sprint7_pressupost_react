@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState}  from 'react';
-import { BoxIncDec } from './boxIncDec.style';
-import InfoTip from './infoTip';
+import { BoxIncDec } from '../boxIncDec/boxIncDec.style';
+import InfoTip from '../infoTip/infoTip';
 
 const PanellInput = (props) => {
 
@@ -12,7 +12,6 @@ const PanellInput = (props) => {
   }
 
   useEffect(()=> {
-      //setNum(props.numShow);
       props.getNumber(num);
     }
   )

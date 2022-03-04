@@ -111,13 +111,11 @@ const Form = (props) => {
 
       const date = new Date();
       const dateIso = date.toISOString();
-      const numPagesLoc= JSON.parse(localStorage.getItem("numPages"));
-      const numLangsLoc= JSON.parse(localStorage.getItem("numLang"));
 
       const presuObject = {
         web,
-        numPages: (web) ? numPagesLoc : 0,
-        numLangs: (web) ? numLangsLoc : 0,
+        numPages: (web) ? numPages : 0,
+        numLangs: (web) ? numLang : 0,
         seo,
         ads,
         namePresu,
